@@ -10,25 +10,25 @@
       {{ end }}
 
       {{ range $pag.Pagers }}
-          {{ $right := sub .TotalPages .PageNumber }}
-          {{ $showNumber := or (le .PageNumber 3) (eq $right 0) }}
-          {{ $showNumber := or $showNumber (and (gt .PageNumber (sub $pag.PageNumber 2)) (lt .PageNumber (add $pag.PageNumber 2)))  }}
-          {{ if $showNumber }}
-              {{ $.Scratch.Set "__paginator.ellipsed" false }}
-              {{ $.Scratch.Set "__paginator.shouldEllipse" false }}
+        {{ $right := sub .TotalPages .PageNumber }}
+        {{ $showNumber := or (le .PageNumber 3) (eq $right 0) }}
+        {{ $showNumber := or $showNumber (and (gt .PageNumber (sub $pag.PageNumber 2)) (lt .PageNumber (add $pag.PageNumber 2)))  }}
+        {{ if $showNumber }}
+            {{ $.Scratch.Set "__paginator.ellipsed" false }}
+            {{ $.Scratch.Set "__paginator.shouldEllipse" false }}
+        {{ else }}
+            {{ $.Scratch.Set "__paginator.shouldEllipse" (not ($.Scratch.Get "__paginator.ellipsed") ) }}
+            {{ $.Scratch.Set "__paginator.ellipsed" true }}
+        {{ end }}
+        {{ if $showNumber }}
+          {{ if eq . $pag }}
+            <em class="current selected" aria-current="true">{{ .PageNumber }}</em>
           {{ else }}
-              {{ $.Scratch.Set "__paginator.shouldEllipse" (not ($.Scratch.Get "__paginator.ellipsed") ) }}
-              {{ $.Scratch.Set "__paginator.ellipsed" true }}
+            <a href="{{ .URL }}">{{ .PageNumber }}</a>
           {{ end }}
-          {{ if $showNumber }}
-            {{ if eq . $pag }}
-              <em class="current selected" aria-current="true">{{ .PageNumber }}</em>
-            {{ else }}
-              <a href="{{ .URL }}">{{ .PageNumber }}</a>
-            {{ end }}
-          {{ else if ($.Scratch.Get "__paginator.shouldEllipse") }}
-            <span class="gap">…</span>
-          {{ end }}
+        {{ else if ($.Scratch.Get "__paginator.shouldEllipse") }}
+          <span class="gap">…</span>
+        {{ end }}
       {{ end }}
 
       {{ if $pag.HasNext }}

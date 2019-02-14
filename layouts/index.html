@@ -11,16 +11,15 @@
   {{ .Content }}
 
   {{ range .Paginator.Pages }}
-  <div>
+  <article>
     <div>
       <a href="{{ .URL }}">
         <h3>{{ .Title }}</h3>
       </a>
-      <small>{{ .Permalink }}</small>
       {{ .Date.Format "2006-01-02" }}
     </div>
     {{ .Summary }}
-  </div>
+  </article>
   {{ end }}
 
   {{ if gt .Paginator.TotalPages 1 }}
@@ -48,7 +47,6 @@
     </div>
   </nav>
   {{ end }}
-
 
 </div>
 

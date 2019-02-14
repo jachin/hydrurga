@@ -2,13 +2,11 @@
   {{ .Title }} &ndash; {{ .Site.Title }}
 {{ end }}
 
-
-
 {{ define "main" }}
 <!-- Title -->
 <div class="Subhead">
   <div class="Subhead-heading">
-    <div class="h1 mt-3 mb-1">{{ .Title }}</div>
+    <h1 class="h1 mt-3 mb-1">{{ .Title }}</h1>
   </div>
   <div class="Subhead-description">
     {{ partial "taxonomy.html" . }}
@@ -39,8 +37,6 @@
   </section>
 </article>
 {{ end }}
-
-
 
 {{ define "side" }}
   {{ if and (gt .WordCount 0 ) (ne .Params.toc "false") }}

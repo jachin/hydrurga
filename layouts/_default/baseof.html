@@ -49,14 +49,14 @@
   <body class="bg-gray">
     <div id="holy" class="container-lg bg-white h-100">
 
-      <div id="header" class="px-1 bg-white">
+      <header id="header" class="px-1 bg-white">
         {{ partial "header.html" . }}
-      </div>
+      </header>
 
-      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+      <main role="main" id="main" class="holy-main markdown-body px-4 bg-white">
         {{ block "main" . }}
         {{ end }}
-      </div>
+      </main>
 
       <div id="side" class="pr-1 bg-white">
         <aside class="pr-3">
@@ -67,19 +67,13 @@
         </aside>
       </div>
 
-      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+      <footer id="footer" class="pt-2 pb-3 bg-white text-center">
         {{ if (default true .Site.Params.CreditHugoPrimer) }}
           <span class="text-small text-gray">
             {{ partial "copyright.html" . }}
           </span>
         {{ end }}
-      </div>
+      </footer>
     </div>
-
-
-    <!-- Scripts -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <!-- MathJax -->
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
   </body>
 </html>

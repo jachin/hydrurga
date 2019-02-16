@@ -7,18 +7,18 @@
 <!-- list template -->
 <div>
 
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-
   {{ range .Paginator.Pages }}
-  <article>
-    <div>
-      <a href="{{ .URL }}">
-        <h3>{{ .Title }}</h3>
-      </a>
-      {{ .Date.Format "2006-01-02" }}
+  <article class="Box m-3">
+    <div class="Box-header d-flex flex-items-center">
+      <h3 class="Box-title flex-auto"><a href="{{ .URL }}">{{ .Title }}</a></h3>
+      {{ .Date.Format "Jan 2 2006" }}
     </div>
-    {{ .Summary }}
+    <div class="Box-body">
+      {{ .Summary }}
+    </div>
+    <div class="Box-footer">
+      {{ partial "taxonomy.html" . }}
+    </div>
   </article>
   {{ end }}
 

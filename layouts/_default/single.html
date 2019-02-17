@@ -17,7 +17,7 @@
         {{ if ne .Lastmod .PublishDate }}
           Lastmod: {{ dateFormat ( default "2006-01-02" .Site.Params.dateFormat ) .Lastmod }}
         {{ else }}
-          Published: {{ dateFormat "2006-01-02" .PublishDate }}
+          Published: {{ dateFormat ( default "2006-01-02" .Site.Params.dateFormat ) .PublishDate }}
         {{ end }}
       </span>
     </div>

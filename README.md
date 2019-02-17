@@ -14,7 +14,7 @@ $ hugo server --theme=hydrurga
 
 ## Usage
 
-#### config.toml
+### config.toml
 You can configure Hydrurga behavior with these params in your blog's `config.toml`. Shown are defaults and most recommended configs.
 
 That being said, below is all recommended configurations.
@@ -42,6 +42,17 @@ useIcon = true
 useTwitterCard = true
 
 shareTo = ["Twitter", "Hatena", "Facebook", "Pocket"]
+```
+
+#### Some config variables you could set.
+
+`dateFormat`
+
+This sets the format for how the dates appear.
+
+```toml
+[params]
+  dateFormat = "Jan 2 2006"
 ```
 
 ## Contributing

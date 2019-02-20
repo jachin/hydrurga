@@ -4,15 +4,14 @@
 
 
 {{ define "main" }}
-<!-- list template -->
-<div>
+
+<div id="terms">
 
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 
   {{ range .Paginator.Pages }}
   <div class="rounded-2 box-shadow-medium px-3 pb-2 pt-2 mb-2">
-    <!-- single page card -->
     <div class="mb-2">
       <a href="{{ .URL }}" class="link-gray-dark"><span class="h2">{{ .Title }}</span></a>
       <span class="text-right Counter Counter--gray">{{ len .Pages }}</span>
@@ -29,9 +28,7 @@
   </div>
   {{ end }}
 
-  <!-- paginator nav -->
   {{ partial "paginator.html" . }}
-
 
 </div>
 

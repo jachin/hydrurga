@@ -5,49 +5,48 @@
 
 {{ define "main" }}
 <!-- list template -->
-<div>
 
-  {{ range .Paginator.Pages }}
-  <article class="Box m-3">
-    <div class="Box-header d-flex flex-items-center">
-      <h3 class="Box-title flex-auto"><a href="{{ .URL }}">{{ .Title }}</a></h3>
-      {{ .Date.Format ( default "2006-01-02" .Site.Params.dateFormat ) }}
-    </div>
-    <div class="Box-body">
-      {{ .Summary }}
-    </div>
-    <div class="Box-footer">
-      {{ partial "taxonomy.html" . }}
-    </div>
-  </article>
-  {{ end }}
+{{ $paginator := .Paginate (where .Pages "Type" "posts") }}
+{{ range $paginator.Pages }}
+<article class="Box m-3">
+  <div class="Box-header d-flex flex-items-center">
+    <h3 class="Box-title flex-auto"><a href="{{ .URL }}">{{ .Title }}</a></h3>
+    {{ .Date.Format ( default "2006-01-02" .Site.Params.dateFormat ) }}
+  </div>
+  <div class="Box-body">
+    {{ .Summary }}
+  </div>
+  <div class="Box-footer">
+    {{ partial "taxonomy.html" . }}
+  </div>
+</article>
+{{ end }}
 
-  {{ if gt .Paginator.TotalPages 1 }}
-  <nav class="paginate-container">
-    <div class="pagination">
-      <ul>
-        {{ if .Paginator.HasPrev }}
-        <a href="{{ .Paginator.Prev.URL }}" class="previous_page">Prev</a>
-        {{ else }}
-        <span class="previous_page disabled">Prev</span>
-        {{ end }}
+{{ if gt .Paginator.TotalPages 1 }}
+<nav class="paginate-container">
+  <div class="pagination">
+    <ul>
+      {{ if .Paginator.HasPrev }}
+      <a href="{{ .Paginator.Prev.URL }}" class="previous_page">Prev</a>
+      {{ else }}
+      <span class="previous_page disabled">Prev</span>
+      {{ end }}
 
-        {{ range .Paginator.Pagers }}
-          <a href="{{ .URL }}">
-            {{ .PageNumber }}
-          </a>
-        {{ end }}
+      {{ range .Paginator.Pagers }}
+        <a href="{{ .URL }}">
+          {{ .PageNumber }}
+        </a>
+      {{ end }}
 
-        {{ if .Paginator.HasNext }}
-        <a href="{{ .Paginator.Next.URL }}" class="next_page">Next</a>
-        {{ else }}
-        <span class="next_page disabled">Next</span>
-        {{ end }}
-      </ul>
-    </div>
-  </nav>
-  {{ end }}
+      {{ if .Paginator.HasNext }}
+      <a href="{{ .Paginator.Next.URL }}" class="next_page">Next</a>
+      {{ else }}
+      <span class="next_page disabled">Next</span>
+      {{ end }}
+    </ul>
+  </div>
+</nav>
+{{ end }}
 
-</div>
 
 {{ end }}

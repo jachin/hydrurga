@@ -2,9 +2,7 @@
   {{ .Title }} &ndash; {{ .Site.Title }}
 {{ end }}
 
-
 {{ define "main" }}
-<!-- list template -->
 
 {{ $paginator := .Paginate (where .Pages "Type" "posts") }}
 {{ range $paginator.Pages }}
@@ -47,6 +45,5 @@
   </div>
 </nav>
 {{ end }}
-
 
 {{ end }}

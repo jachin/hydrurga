@@ -37,7 +37,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 [params]
 description = "Describe what your web page is about"
 twitter = "your_twitter_id"
-# You can use favicon by addin them manually.
+# You can use favicon by adding them manually.
 useIcon = true
 useTwitterCard = true
 
@@ -54,6 +54,23 @@ This sets the format for how the dates appear.
 [params]
   dateFormat = "Jan 2 2006"
 ```
+
+## Favicons
+
+Put your favicons in your site's `static\favicon` directory and name appropriately.
+
+- favicon/favicon.ico
+- favicon/favicon-032.png
+- favicon/favicon-057.png
+- favicon/favicon-072.png
+- favicon/favicon-120.png
+- favicon/favicon-128.png
+- favicon/favicon-144.png
+- favicon/favicon-152.png
+- favicon/favicon-195.png
+- favicon/favicon-228.png
+
+Yes, the world of favicons seems more complicated than it needs to be, but lets try and be accommodating.
 
 ## Contributing
 Issues and PRs are welcome.

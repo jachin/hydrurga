@@ -16,14 +16,22 @@
     {{ end }}
     {{ template "_internal/opengraph.html" . }}
 
-    {{ .Hugo.Generator }}
+    {{ hugo.Generator }}
 
     <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}">
     <!-- favicon & touch-icon -->
     {{ if .Site.Params.UseIcon }}
-    <link rel="icon" href="/favicon-64.png">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="mask-icon" size="any" href="/pinned-icon.svg">
+    <link rel="icon" href="{{ `assets/favicon/favicon.ico` | relURL }}">
+
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-032.png` | relURL }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-057.png` | relURL }}" sizes="57x57">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-072.png` | relURL }}" sizes="72x72">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-120.png` | relURL }}" sizes="120x120">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-128.png` | relURL }}" sizes="128x128">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-144.png` | relURL }}" sizes="144x144">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-152.png` | relURL }}" sizes="152x152">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-195.png` | relURL }}" sizes="195x195">
+    <link rel="icon" type="image/png" href="{{ `assets/favicon/favicon-228.png` | relURL }}" sizes="228x228">
     {{ end }}
 
     <link rel="stylesheet" href="{{ `assets/syntax.css` | relURL }}">

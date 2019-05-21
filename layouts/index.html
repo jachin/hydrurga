@@ -8,7 +8,7 @@
 {{ range $paginator.Pages }}
 <article class="Box m-3">
   <div class="Box-header d-flex flex-items-center">
-    <h3 class="Box-title flex-auto"><a href="{{ .URL }}">{{ .Title }}</a></h3>
+    <h3 class="Box-title flex-auto"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
     {{ .Date.Format ( default "2006-01-02" .Site.Params.dateFormat ) }}
   </div>
   <div class="Box-body">

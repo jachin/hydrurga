@@ -1,5 +1,15 @@
+{{ define "title" }}
+  404 Not Found &ndash; {{ .Site.Title }}
+{{ end }}
+
 {{ define "main" }}
 
-<h1>404 Page not found</h1>
+<h1>Error 404</h1>
+
+<h2>This page was not found.</h2>
+
+<p>The site has changed a lot over the years though, so perhaps what you are looking for still exists at a different URL.
+
+<p>Maybe you can find it by looking through the <a href="/tags/">tags</a> or <a href="/categories/">categories</a>.</p>
 
 {{ end }}

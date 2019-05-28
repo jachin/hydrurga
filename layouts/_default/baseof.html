@@ -37,6 +37,10 @@
     <link rel="stylesheet" href="{{ `assets/syntax.css` | relURL }}">
     <link rel="stylesheet" href="{{ `assets/primer-build.css` | relURL }}">
     <link rel="stylesheet" href="{{ `assets/style.css` | relURL }}">
+
+    {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
   </head>
 
   <body class="bg-gray">

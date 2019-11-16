@@ -4,7 +4,10 @@
 
 {{ define "main" }}
 
-{{ range .Paginator.Pages }}
+
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections) }}
+
+{{ range $paginator.Pages }}
 <article class="Box m-3">
   <div class="Box-header d-flex flex-items-center">
     <h3 class="Box-title flex-auto"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>

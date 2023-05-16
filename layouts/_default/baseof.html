@@ -59,15 +59,15 @@
         </footer>
     </div>
 
-    {{ if not .Site.BuildDrafts }}
+    {{ if and (not .Site.BuildDrafts) (isset .Site.Params "googletagmanagertag") }}
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.googleTagManagerTag }}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleTagManagerTag }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() {dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '{{ .Site.googleTagManagerTag }}');
+        gtag('config', '{{ .Site.Params.googleTagManagerTag }}');
     </script>
     {{ end }}
 

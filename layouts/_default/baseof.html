@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {{ if not .Site.BuildDrafts }}
-    {{ template "_internal/google_analytics_async.html" . }}
-    {{ end }}
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-      {{ block "title" . }}
-      {{ .Site.Title }}
-      {{ end }}
+        {{ block "title" . }}
+        {{ .Site.Title }}
+        {{ end }}
     </title>
     {{ with .Keywords }}
     <meta content="{{ delimit . `, ` }}" name="keywords">
@@ -39,25 +37,40 @@
     <link rel="stylesheet" href="{{ `assets/style.css` | relURL }}">
 
     {{ range .AlternativeOutputFormats -}}
-    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ printf `
+    <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-  </head>
+</head>
 
-  <body class="bg-gray">
+<body class="bg-gray">
     <div class="container-lg bg-white">
 
-      <header class="px-1 bg-white">
-        {{ partial "header.html" . }}
-      </header>
+        <header class="px-1 bg-white">
+            {{ partial "header.html" . }}
+        </header>
 
-      <main role="main" class="px-4 bg-white">
-        {{ block "main" . }}
-        {{ end }}
-      </main>
+        <main role="main" class="px-4 bg-white">
+            {{ block "main" . }}
+            {{ end }}
+        </main>
 
-      <footer id="footer" class="pt-2 pb-3 bg-white text-center">
-        {{ partial "footer.html" . }}
-      </footer>
+        <footer id="footer" class="pt-2 pb-3 bg-white text-center">
+            {{ partial "footer.html" . }}
+        </footer>
     </div>
-  </body>
+
+    {{ if not .Site.BuildDrafts }}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.googleTagManagerTag }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ .Site.googleTagManagerTag }}');
+    </script>
+    {{ end }}
+
+</body>
+
 </html>

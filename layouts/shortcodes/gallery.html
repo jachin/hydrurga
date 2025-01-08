@@ -1,0 +1,2 @@
+{{ $siteData := .Site.Data }} {{ $gallery := index $siteData (.Get 0) }} {{
+partial "gallery.html" $gallery }}

@@ -1,0 +1,68 @@
+<div class="gallery">
+{{ range $image_content := . }}
+    {{ if eq .content_type "image" }}
+    <div class="image">
+        <dialog
+            id="{{ printf "%s_dialog" .image_id }}"
+            class="image-detail"
+        >
+            <a href="#" class="close-button">X</a>
+            <figure data-figure-index="0">
+                <img
+                    class="large-image"
+                    src="{{ printf "/images/%s" .file_name }}"
+                    alt="{{ .title }}"
+                />
+                <figcaption>{{ .description }} ({{ .datetime | time.Format ":date_medium" }})</figcaption>
+            </figure>
+        </dialog>
+        <a
+            href="#"
+            id="{{ printf "%s_dialog_thumbnail_link" .image_id }}"
+            class="thumbnail_link"
+            data-dialog-id="{{ printf "%s_dialog" .image_id }}"
+            data-figure-index="0"
+            ><figure>
+            <img src="{{ printf "/images/%s" .thumbnail_filename }}" alt="{{ .description }}" class="thumbnail" />
+            <figcaption>{{ .title }}</figcaption>
+        </figure></a>
+    </div>
+    {{ else if eq .content_type "gallery" }}
+        <div class="image-group">
+            <h3 class="gallary-title">{{ .title }}</h3>
+            <dialog id="{{ printf "%s_dialog" .gallery_id }}" class="image-detail">
+                <a href="#" class="close-button">X</a>
+                {{ range $index, $image := .images }}
+                <figure data-figure-index="{{ $index }}">
+                    <img
+                        class="large-image"
+                        src="{{ printf "/images/%s" .file_name }}"
+                    />
+                    <figcaption>
+                        {{ .description }} ({{ .datetime | time.Format ":date_medium" }})
+                    </figcaption>
+                </figure>
+                {{ end }}
+                <a href="#" class="previous"><- previous</a>
+                <a href="#" class="next">next -></a>
+            </dialog>
+            {{ range $index, $image := .images }}
+            <div class="image">
+            <a
+                href="#"
+                id="{{ printf "%s_dialog_thumbnail_link" .image_id }}"
+                class="thumbnail_link"
+                data-dialog-id="{{ printf "%s_dialog" $image_content.gallery_id }}"
+                data-figure-index="{{ $index }}"
+            >
+            <figure>
+                <img src="{{ printf "/images/%s" .thumbnail_filename }}" alt="{{ .description }}" class="thumbnail" />
+                <figcaption>{{ .title }}</figcaption>
+            </figure>
+            </a>
+            </div>
+            {{ end }}
+        </div>
+    {{ end }}
+{{ end }}
+</div>

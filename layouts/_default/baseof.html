@@ -1,76 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ block "title" . }} {{ .Site.Title }} {{ end }}</title>
+        {{ with .Keywords }}
+        <meta content="{{ delimit . `, ` }}" name="keywords" />
+        {{ end }} {{ template "_internal/opengraph.html" . }} {{ hugo.Generator
+        }}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        {{ block "title" . }}
-        {{ .Site.Title }}
+        <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}" />
+        <!-- favicon & touch-icon -->
+        {{ if .Site.Params.UseIcon }}
+        <link rel="icon" href="{{ `favicon/favicon.ico` | relURL }}" />
+
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-032.png` | relURL }}"
+            sizes="32x32"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-057.png` | relURL }}"
+            sizes="57x57"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-072.png` | relURL }}"
+            sizes="72x72"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-120.png` | relURL }}"
+            sizes="120x120"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-128.png` | relURL }}"
+            sizes="128x128"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-144.png` | relURL }}"
+            sizes="144x144"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-152.png` | relURL }}"
+            sizes="152x152"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-195.png` | relURL }}"
+            sizes="195x195"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ `favicon/favicon-228.png` | relURL }}"
+            sizes="228x228"
+        />
         {{ end }}
-    </title>
-    {{ with .Keywords }}
-    <meta content="{{ delimit . `, ` }}" name="keywords">
-    {{ end }}
-    {{ template "_internal/opengraph.html" . }}
 
-    {{ hugo.Generator }}
+        <link rel="stylesheet" href="{{ `assets/syntax.css` | relURL }}" />
+        <link
+            rel="stylesheet"
+            href="{{ `assets/primer-build.css` | relURL }}"
+        />
+        <link rel="stylesheet" href="{{ `assets/style.css` | relURL }}" />
 
-    <meta name="apple-mobile-web-app-title" content="{{ .Site.Title }}">
-    <!-- favicon & touch-icon -->
-    {{ if .Site.Params.UseIcon }}
-    <link rel="icon" href="{{ `favicon/favicon.ico` | relURL }}">
+        {{ range .AlternativeOutputFormats -}} {{ printf `
+        <link rel="%s" type="%s" href="%s" title="%s" />
+        ` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }} {{ end -}}
+    </head>
 
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-032.png` | relURL }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-057.png` | relURL }}" sizes="57x57">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-072.png` | relURL }}" sizes="72x72">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-120.png` | relURL }}" sizes="120x120">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-128.png` | relURL }}" sizes="128x128">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-144.png` | relURL }}" sizes="144x144">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-152.png` | relURL }}" sizes="152x152">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-195.png` | relURL }}" sizes="195x195">
-    <link rel="icon" type="image/png" href="{{ `favicon/favicon-228.png` | relURL }}" sizes="228x228">
-    {{ end }}
+    <body class="bg-gray">
+        <div class="container-lg bg-white">
+            <header class="px-1 bg-white">{{ partial "header.html" . }}</header>
 
-    <link rel="stylesheet" href="{{ `assets/syntax.css` | relURL }}">
-    <link rel="stylesheet" href="{{ `assets/primer-build.css` | relURL }}">
-    <link rel="stylesheet" href="{{ `assets/style.css` | relURL }}">
+            <main role="main" class="px-4 bg-white">
+                {{ block "main" . }} {{ end }}
+            </main>
 
-    {{ range .AlternativeOutputFormats -}}
-    {{ printf `
-    <link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-    {{ end -}}
-</head>
+            <footer id="footer" class="pt-2 pb-3 bg-white text-center">
+                {{ partial "footer.html" . }}
+            </footer>
+        </div>
 
-<body class="bg-gray">
-    <div class="container-lg bg-white">
+        <script>
+            const thumbail_links = document.querySelectorAll(".thumbnail_link");
+            thumbail_links.forEach((thumbail_link) => {
+                const dialogId = thumbail_link.getAttribute("data-dialog-id");
+                if (dialogId) {
+                    const dialog = document.getElementById(dialogId);
+                    if (dialog) {
+                        thumbail_link.addEventListener("click", (evt) => {
+                            evt.preventDefault();
+                            const figureIndex =
+                                thumbail_link.getAttribute("data-figure-index");
+                            if (
+                                figureIndex !== null ||
+                                figureIndex !== undefined
+                            ) {
+                                // 0 is ok of course
+                                const figure_to_show = dialog.querySelector(
+                                    `figure[data-figure-index='${figureIndex}']`,
+                                );
+                                const figure_currently_shown =
+                                    dialog.querySelector("figure.is-current");
 
-        <header class="px-1 bg-white">
-            {{ partial "header.html" . }}
-        </header>
+                                if (figure_currently_shown) {
+                                    const current_index =
+                                        figure_currently_shown.getAttribute(
+                                            "data-figure-index",
+                                        );
 
-        <main role="main" class="px-4 bg-white">
-            {{ block "main" . }}
-            {{ end }}
-        </main>
+                                    if (current_index != figureIndex) {
+                                        figure_currently_shown.classList.remove(
+                                            "is-current",
+                                        );
+                                        figure_to_show.classList.add(
+                                            "is-current",
+                                        );
+                                    }
+                                } else {
+                                    figure_to_show.classList.add("is-current");
+                                }
+                            }
 
-        <footer id="footer" class="pt-2 pb-3 bg-white text-center">
-            {{ partial "footer.html" . }}
-        </footer>
-    </div>
+                            dialog.showModal();
+                        });
 
-    {{ if and (not .Site.BuildDrafts) (isset .Site.Params "googletagmanagertag") }}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleTagManagerTag }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {dataLayer.push(arguments);}
-        gtag('js', new Date());
+                        const closeButtonElement =
+                            dialog.querySelector(".close-button");
+                        if (closeButtonElement) {
+                            closeButtonElement.addEventListener(
+                                "click",
+                                (evt) => {
+                                    evt.preventDefault();
+                                    dialog.close();
+                                },
+                            );
+                        }
+                    }
+                } else {
+                    console.error(
+                        "Unable to find matching dialogId: ",
+                        dialogId,
+                    );
+                }
+            });
+            // Setup the previous/next buttons.
+            const dialog_elements_for_image_groups = document.querySelectorAll(
+                "div.image-group dialog",
+            );
+            dialog_elements_for_image_groups.forEach(
+                (dialog_element_for_image_group) => {
+                    const previous_button =
+                        dialog_element_for_image_group.querySelector(
+                            ".previous",
+                        );
+                    const next_button =
+                        dialog_element_for_image_group.querySelector(".next");
 
-        gtag('config', '{{ .Site.Params.googleTagManagerTag }}');
-    </script>
-    {{ end }}
+                    const number_of_images_in_group =
+                        dialog_element_for_image_group.querySelectorAll(
+                            "figure",
+                        ).length;
 
-</body>
+                    if (previous_button) {
+                        previous_button.addEventListener("click", (evt) => {
+                            evt.preventDefault();
+                            const figure_currently_shown =
+                                dialog_element_for_image_group.querySelector(
+                                    "figure.is-current",
+                                );
 
+                            const current_index =
+                                figure_currently_shown.getAttribute(
+                                    "data-figure-index",
+                                );
+                            let previous_index = current_index - 1;
+
+                            if (previous_index < 0) {
+                                previous_index = number_of_images_in_group - 1;
+                            }
+
+                            const previous_figure =
+                                dialog_element_for_image_group.querySelector(
+                                    `figure[data-figure-index='${previous_index}']`,
+                                );
+
+                            if (figure_currently_shown) {
+                                const current_index =
+                                    figure_currently_shown.getAttribute(
+                                        "data-figure-index",
+                                    );
+
+                                if (current_index != previous_index) {
+                                    figure_currently_shown.classList.remove(
+                                        "is-current",
+                                    );
+                                    previous_figure.classList.add("is-current");
+                                }
+                            } else {
+                                previous_figure.classList.add("is-current");
+                            }
+                        });
+                    } else {
+                        console.error(
+                            "Something went wrong, I could not setup the previous button",
+                        );
+                    }
+
+                    if (next_button) {
+                        next_button.addEventListener("click", (evt) => {
+                            evt.preventDefault();
+                            const figure_currently_shown =
+                                dialog_element_for_image_group.querySelector(
+                                    "figure.is-current",
+                                );
+
+                            const current_index = parseInt(
+                                figure_currently_shown.getAttribute(
+                                    "data-figure-index",
+                                ),
+                                10,
+                            );
+                            let next_index = current_index + 1;
+
+                            if (next_index > number_of_images_in_group - 1) {
+                                next_index = 0;
+                            }
+
+                            const next_figure =
+                                dialog_element_for_image_group.querySelector(
+                                    `figure[data-figure-index='${next_index}']`,
+                                );
+
+                            if (figure_currently_shown) {
+                                const current_index =
+                                    figure_currently_shown.getAttribute(
+                                        "data-figure-index",
+                                    );
+
+                                if (current_index != next_figure) {
+                                    figure_currently_shown.classList.remove(
+                                        "is-current",
+                                    );
+                                    next_figure.classList.add("is-current");
+                                }
+                            } else {
+                                next_figure.classList.add("is-current");
+                            }
+                        });
+                    } else {
+                        console.error(
+                            "Something went wrong, I could not setup the previous button",
+                        );
+                    }
+                },
+            );
+        </script>
+
+        {{ if and (not .Site.BuildDrafts) (isset .Site.Params
+        "googletagmanagertag") }}
+        <!-- Google tag (gtag.js) -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleTagManagerTag }}"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "{{ .Site.Params.googleTagManagerTag }}");
+        </script>
+        {{ end }}
+    </body>
 </html>

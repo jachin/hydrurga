@@ -28,9 +28,9 @@ body {
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .gallery figure {
@@ -72,6 +72,11 @@ body {
 
 .gallary-title {
     text-align: center;
+}
+
+.gallery .image-group {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
 }
 
 .gallery .image-group dialog figure {

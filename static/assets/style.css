@@ -92,3 +92,7 @@ body {
 .gallery dialog .close-button {
     float: right;
 }
+
+.Box-body ol {
+    padding-left: 2em;
+}
